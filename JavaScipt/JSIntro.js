@@ -59,4 +59,15 @@ a = 9007199254740992n;
 a = BigInt("9007199254740992"); // Through Function
 
 // Symbol
+
+// Example of Symbol
+var a = Symbol();
+typeof(a);
+
+// Symbol is an Object that is unique in the memory and can be compared with ===
+
+
 // Null
+
+// Function
+

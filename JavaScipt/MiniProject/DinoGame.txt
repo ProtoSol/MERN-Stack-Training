@@ -1,0 +1,17 @@
+ Making the Chrome's Dino Game
+
+ What things We need to make this Game
+
+    Code Editor 
+    Javascript -> Variables, Constants, Functions, Class, Module, DOM, EventAttachment
+    HTML Canvas -> JS
+    Cloud Deployment
+
+ What is HTML5 Canvas?
+    Supported by Almost All Browsers.
+    HTML5 Canvas is like a container.
+    HTML5 Canvas is used to create 2D graphics like lines, text, images etc
+    eg <canvas id="canvas" width="100" height="100" style="border: 1px solid black;"></canvas>
+
+
+We will make classes for Player, Board, Cactus etc.

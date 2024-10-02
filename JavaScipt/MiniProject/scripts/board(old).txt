@@ -1,0 +1,33 @@
+const canvas = document.querySelector('#canvas');
+canvas.width = 300;
+canvas.height = 300;
+canvas.style = "border: 1px solid black;";
+// Canvas has a feature getContext that can be used to create graphics
+const ctx = canvas.getContext('2d');
+
+// Line
+// ctx.moveTo(0,0);
+// ctx.lineTo(20,300);
+// ctx.stroke();
+
+// Rectangle
+// ctx.fillStyle = 'red';
+// ctx.fillRect(10,10,100,100);
+
+// Circle
+// ctx.beginPath();
+// ctx.arc(150,150,50,0,2*Math.PI);
+// ctx.fillStyle = 'blue';
+// ctx.fill();
+// ctx.stroke();
+
+// Image
+// const image = new Image();
+// image.src = '../images/test.png';
+// ctx.drawImage(image, 0, 0, 100, 100);
+// There seems to be a problem with the image rendering
+
+// Text
+// ctx.font = "30px Arial";
+// ctx.fillStyle = "green";
+// ctx.fillText("Hello World", 10, 50);

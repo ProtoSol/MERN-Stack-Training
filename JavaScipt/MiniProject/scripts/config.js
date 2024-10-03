@@ -1,8 +1,8 @@
 export const GAME_WIDTH = 1200;
 export const GAME_HEIGHT = 300;
-export const FRAME_RATE = 70;
-export const SPEED = 20;
-export const MIN = 1000;
-export const MAX = 2000;
-export const GRAVITY = 3 ;
-export const JUMP_STRENGTH = 30;
+export const FRAME_RATE = 70;  // Frame rate for the game
+export const SPEED = 5;        // Speed of the cacti and the floor movement
+export const MIN = 1000;       // Minimum time delay for cactus generation
+export const MAX = 3000;       // Maximum time delay for cactus generation
+export const GRAVITY = 3;      // Gravity for the player
+export const JUMP_STRENGTH = 30; // Jump strength for the player

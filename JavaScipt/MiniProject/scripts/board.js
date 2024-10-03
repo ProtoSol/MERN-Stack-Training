@@ -1,12 +1,15 @@
-// Game Code
-// Player Load, Cactus Load, Floor Load, Board Load
-
 import { FRAME_RATE, GAME_HEIGHT, GAME_WIDTH, MAX, MIN } from "./config.js";
 import Floor from "./floor.js";
 import Player from "./player.js";
 import Cactus from "./cactus.js";
 
 window.addEventListener('load', gameStart);
+
+let player;
+let floor;
+let context;
+let cactusArray = [];
+let cactusTimer; // Timer for cactus generation
 
 function gameStart() {
     prepareCanvas();
@@ -15,88 +18,71 @@ function gameStart() {
     bindEvent();
 }
 
-let player;
-let floor;
-let context;
-
-function bindEvent(){
+function bindEvent() {
     window.addEventListener('keyup', doJump);
 }
 
-function doJump(event){
-    console.log(event.code);
-    if(event.code === 'Space'){
-        player.jump();
+function doJump(event) {
+    if (event.code === 'Space') {
+        player.jump();  // Trigger jump on spacebar press
     }
-} 
-// Step 1 Draw a canvas
+}
 
-// We will use Window object and event listener
-window.addEventListener('load', prepareCanvas);
 function prepareCanvas() {
     const canvas = document.querySelector('#canvas');
     canvas.width = GAME_WIDTH;
     canvas.height = GAME_HEIGHT;
     context = canvas.getContext('2d');
-    canvas.style = "border: 1px solid black;";
+    canvas.style = "border: 1px solid black;"; // Set canvas border
 }
 
 function loadSprites() {
     player = new Player();
     floor = new Floor();
-    loadCactus();
+    startCactusGeneration();  // Start cactus generation
 }
 
-let cactusArray = [];
-function loadCactus() {
-    const cactusArr = ['./assets/cactus1.png','./assets/cactus2.png','./assets/cactus3.png'];
-    let GAP = 1;
-    for(var c of cactusArr){
-        const cactus = new Cactus(GAME_WIDTH * GAP, GAME_HEIGHT - 135, 48, 100, c);
-        GAP += 2;
-        cactusArray.push(cactus);
-    }
-}
-
-// To get random number we use Math.random()
-// Here we will use Math.floor(Math.random() * 10 - 1 + 1) + 1;
-function printCactus(context){
-    for(var cactus of cactusArray){
+function printCactus(context) {
+    for (const cactus of cactusArray) {
         cactus.draw(context);
     }
 }
 
-function generateRandomNumber() {
-    return Math.floor(Math.random() * MAX - MIN + 1) + MIN;
+function generateRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min; // Generate a random number
 }
-let delay = 0;
-function generateRandomCactus() {
-    if(delay >= 75){
-        delay = 0;
-        setTimeout(()=>{
-            loadCactus();
-            // cactusArray.push(new Cactus(GAME_WIDTH * 1, GAME_HEIGHT - 135, 48, 100, './assets/cactus1.png'));
-        }, generateRandomNumber());
-    }
-    delay ++;
+
+function startCactusGeneration() {
+    const cactusArr = ['./assets/cactus1.png', './assets/cactus2.png', './assets/cactus3.png'];
+
+    cactusTimer = setInterval(() => {
+        const randomCactusIndex = generateRandomNumber(0, cactusArr.length - 1);
+        const randomCactus = cactusArr[randomCactusIndex];
+
+        // Set a random Y position if necessary, or keep it constant for simplicity
+        const cactusX = GAME_WIDTH + 100; // Starting X position
+        const cactusY = GAME_HEIGHT - 135; // Y position can be adjusted
+
+        cactusArray.push(new Cactus(cactusX, cactusY, 48, 100, randomCactus));
+        
+        console.log("Cactus generated: ", randomCactus); // Debugging statement
+    }, generateRandomNumber(MIN, MAX));
 }
+
 function removeUnusedCactus() {
-    cactusArray = cactusArray.filter(c=>!c.isOutOfScreen());
+    cactusArray = cactusArray.filter(c => !c.isOutOfScreen()); // Remove cacti that are out of screen
 }
 
 function gameLoop() {
     clearScreen();
-    player.draw(context);
-    floor.draw(context);
-    printCactus(context);
-    generateRandomCactus();
-    removeUnusedCactus();
-    setTimeout(function(){
-        requestAnimationFrame(gameLoop);
-    }, FRAME_RATE);
+    player.draw(context);  // Draw the player
+    floor.draw(context);   // Draw the floor
+    printCactus(context);  // Draw cacti
+    removeUnusedCactus();  // Remove unused cacti
+    requestAnimationFrame(gameLoop);  // Request next frame
 }
 
-function clearScreen(){
+function clearScreen() {
     context.fillStyle = 'white';
-    context.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+    context.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT); // Clear the screen
 }

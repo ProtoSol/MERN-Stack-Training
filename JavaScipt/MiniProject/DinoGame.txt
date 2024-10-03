@@ -15,3 +15,9 @@
 
 
 We will make classes for Player, Board, Cactus etc.
+
+
+--------------------------------------------------------
+
+Now we need walk animation, background movement, cactus print, player jump
+collision, score maintain.

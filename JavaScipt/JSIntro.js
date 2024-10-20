@@ -69,5 +69,15 @@ typeof(a);
 
 // Null
 
+typeof(null); // It is an Object
+
 // Function
+
+// Operators
+
+// Number + Number = Number
+// String + String = String
+// Number + String = String
+// String - String = NaN (Number)
+// String + Number = Number
 
